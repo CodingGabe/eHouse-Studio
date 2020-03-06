@@ -1,0 +1,58 @@
+<section class="pw-wrapper">
+  <!-- lets user select a headline if not then displays a default -->
+  <h2 class="pw-headline">{{ section.settings.headline }}</h2>
+
+  <!-- added password login as a section to add schema for users -->
+  {% unless shop.password_message == blank %}
+    <p class="pw-message">
+      {{ shop.password_message }}
+    </p>
+  {% endunless %}
+
+  {% form 'customer', class: 'pw-form_wrapper' %}
+
+    {{ form.errors | default_errors }}
+
+    {% if form.posted_successfully? %}
+      <ul class="form-success">
+        <li>{{ 'general.password_page.signup_form_success' | t }}</li>
+      </ul>
+    {% else %}
+      <h4>{{ 'general.password_page.signup_form_heading' | t }}</h4>
+      <input type="hidden" name="contact[tags]" value="prospect, password page">
+      <label for="email">
+        {{ 'general.password_page.signup_form_email_label' | t }}
+      </label>
+      <input type="email"
+        name="contact[email]"
+        id="Email"
+        spellcheck="false"
+        autocomplete="off"
+        autocapitalize="off"
+        placeholder="{{ 'general.password_page.signup_form_email_placeholder' | t }}">
+      <button type="submit" name="commit" class="button">
+        {{ 'general.password_page.signup_form_submit' | t }}
+      </button>
+    {% endif %}
+  {% endform %}
+</section>
+
+
+{% scheme %}
+  {
+    "name": "Password Signup",
+    "settings": [
+      {
+        "id": "headline",
+        "type": "text",
+        "label": "Headline",
+        "default": "Welcome from Texas!"
+      },
+      {
+        "id": "background-image",
+        "type": "image_picker",
+        "label": "Background Image"
+      }
+    ]
+  }
+{% endschema %}
