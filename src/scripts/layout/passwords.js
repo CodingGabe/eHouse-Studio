@@ -1,1 +1,1 @@
-import '../../styles/password.scss';
+import '../../styles/templates/password.scss';
